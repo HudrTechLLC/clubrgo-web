@@ -1,0 +1,8 @@
+<svg width="560" height="170" viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ClubrGO — Champion of the Club">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0D285"/><stop offset="1" stop-color="#C99B3E"/></linearGradient><style>.wm{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700}.tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;fill:#6E8678}</style></defs>
+<rect width="560" height="170" fill="#0B1410"/>
+<g transform="translate(40,43)"><rect width="84" height="84" rx="24" fill="#11201A" stroke="#23382C"/><path d="M27 60 L22 80 L42 68 L62 80 L57 60 Z" fill="#C99B3E"/>
+    <circle cx="42" cy="34" r="30" fill="url(#g)"/>
+    <path d="M42 16 l5.4 12 13.2 1 -10 8.9 3 12.9 -11.6 -6.9 -11.6 6.9 3 -12.9 -10 -8.9 13.2 -1 Z" fill="#11201A"/></g>
+<text class="wm" x="150" y="97" font-size="48"><tspan fill="#F3F6F2">Clubr</tspan><tspan fill="#E9C46A">GO</tspan></text>
+<text class="tag" x="152" y="122">CHAMPION OF THE CLUB</text></svg>

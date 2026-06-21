@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClubrGO — The scorekeeper for your club's games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1410;--bg2:#070D0A;--card:#11201A;--surf:#16291F;--raised:#1E3A2C;
+    --line:#23382C;--line2:#2C4636;--ink:#F3F6F2;--ink2:#AFC4B6;--ink3:#6E8678;
+    --gold:#E9C46A;--goldD:#C99B3E;--emer:#36C98B;--blue:#5AA9E6;--purple:#A98BE6;--red:#E5604F;
+    --sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',sans-serif;--mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono)}.disp{font-family:var(--disp)}.gold{color:var(--gold)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+
+  /* structured grid backdrop */
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 64px,
+      linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/64px 100%;
+    opacity:.20;mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%)}
+  body::after{content:"";position:fixed;inset:0;z-index:-2;background:
+    radial-gradient(80% 50% at 80% 0%,rgba(233,196,106,.07),transparent 60%),var(--bg)}
+
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(9,17,13,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .wordmark{white-space:nowrap}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:20px}
+  .brand .chip{width:34px;height:34px;border-radius:10px;background:#11201A;border:1px solid var(--line);display:grid;place-items:center}
+  .navlinks{display:flex;gap:8px;align-items:center}
+  .navlinks a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink2);padding:8px 12px;border-radius:8px;transition:.2s}
+  .navlinks a:hover{color:var(--ink);background:var(--surf)}
+  .btn{font-family:var(--disp);font-weight:600;border-radius:10px;border:none;cursor:pointer;transition:transform .15s,filter .2s,background .2s;display:inline-flex;align-items:center;gap:8px}
+  .btn:active{transform:scale(.97)}
+  .btn-gold{background:var(--gold);color:var(--bg);padding:10px 18px;font-size:13px}
+  .btn-gold:hover{filter:brightness(1.06)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line2);padding:10px 18px;font-size:13px}
+  .btn-ghost:hover{background:var(--surf)}
+  .btn-lg{padding:14px 24px;font-size:15px;border-radius:12px}
+
+  /* hero — split: copy left, framed product right */
+  .hero{padding:64px 0 40px}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .tagrow{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+  .tagchip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 11px;border-radius:7px;border:1px solid var(--line);color:var(--ink2);background:var(--card)}
+  .hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(34px,4.6vw,56px);line-height:1.05;letter-spacing:-.02em;margin-bottom:20px}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .lede{font-size:18px;color:var(--ink2);max-width:44ch;margin-bottom:28px}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .specrow{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .spec{background:var(--card);padding:16px}
+  .spec .n{font-family:var(--disp);font-weight:700;font-size:22px}
+  .spec .l{font-family:var(--mono);font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+  /* device frame */
+  .device{border:1px solid var(--line2);border-radius:18px;background:linear-gradient(160deg,#13241b,#0c1611);padding:14px;box-shadow:0 40px 100px -40px rgba(0,0,0,.7)}
+  .device-bar{display:flex;align-items:center;gap:6px;padding:0 4px 12px}
+  .device-bar i{width:10px;height:10px;border-radius:50%;background:var(--line2)}
+  .device-bar .url{margin-left:10px;font-family:var(--mono);font-size:11px;color:var(--ink3);flex:1;text-align:center}
+  .screen{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .scr-top{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 8px}
+  .scr-title{font-family:var(--disp);font-weight:700;font-size:20px;padding:6px 14px 8px}
+  .pills{display:flex;gap:6px;padding:0 14px 6px;flex-wrap:wrap}
+  .pill{font-family:var(--mono);font-size:10px;font-weight:600;padding:6px 10px;border-radius:7px;border:1px solid var(--line);color:var(--ink2)}
+  .pill.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+  .gcard{margin:8px 14px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);padding:13px;position:relative;overflow:hidden}
+  .gcard.live{border-color:rgba(233,196,106,.22)}
+  .gcard.live::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+  .gc-top{display:flex;justify-content:space-between;margin-bottom:9px}
+  .chip-mono{font-family:var(--mono);font-size:10px;font-weight:600;padding:4px 9px;border-radius:7px;border:1px solid}
+  .c-purple{background:#2A2245;color:var(--purple);border-color:rgba(169,139,230,.3)}
+  .c-emer{background:#0F3327;color:var(--emer);border-color:rgba(54,201,139,.3)}
+  .cd .l{font-family:var(--mono);font-size:9px;color:var(--ink3);text-transform:uppercase;text-align:right}
+  .cd .t{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--gold);text-align:right}
+  .gc-title{font-family:var(--disp);font-weight:700;font-size:15px}
+  .meta{display:flex;border-top:1px solid var(--line);padding-top:9px;margin-top:9px}
+  .meta>div{flex:1}.meta>div+div{border-left:1px solid var(--line);padding-left:10px}
+  .meta .k{font-family:var(--mono);font-size:9px;text-transform:uppercase;color:var(--ink3);letter-spacing:.05em}
+  .meta .v{font-family:var(--disp);font-weight:700;font-size:13px;margin-top:2px}
+
+  /* sections */
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:40px;flex-wrap:wrap}
+  .sec-head h2{font-family:var(--disp);font-weight:700;font-size:clamp(26px,3.2vw,38px);letter-spacing:-.02em;line-height:1.1;max-width:18ch}
+  .sec-head p{color:var(--ink2);max-width:36ch;font-size:15px}
+
+  /* numbered spec rows (host flow) */
+  .flow{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .flow-row{background:var(--card);display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:center;padding:22px 24px;transition:background .2s}
+  .flow-row:hover{background:var(--surf)}
+  .flow-row .idx{font-family:var(--mono);font-size:13px;color:var(--gold)}
+  .flow-row h3{font-family:var(--disp);font-weight:600;font-size:19px;margin-bottom:3px}
+  .flow-row p{color:var(--ink2);font-size:14px}
+  .flow-row .meta-tag{font-family:var(--mono);font-size:11px;color:var(--ink3);white-space:nowrap}
+
+  /* games grid */
+  .games{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .gtile{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden;transition:border-color .2s,transform .2s}
+  .gtile:hover{transform:translateY(-3px)}
+  .gtile-head{padding:18px 18px 14px;border-bottom:1px solid var(--line)}
+  .gtile .tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+  .gtile.ft .tag{color:var(--purple)} .gtile.ll .tag{color:var(--gold)} .gtile.sq .tag{color:var(--emer)}
+  .gtile h3{font-family:var(--disp);font-weight:600;font-size:19px;margin:7px 0 5px}
+  .gtile p{color:var(--ink2);font-size:14px}
+  .gtile-demo{height:96px;position:relative;overflow:hidden;background:var(--bg2)}
+  /* demos reuse */
+  .dm{padding:14px}
+  .dm-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--ink3);margin-bottom:7px}
+  .dm-bar{height:8px;border-radius:99px;background:#0C1A13;overflow:hidden}
+  .dm-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--goldD),var(--gold));animation:fill 3.5s ease-in-out infinite}
+  @keyframes fill{0%,100%{width:30%}50%{width:76%}}
+  .dm-tokens{display:flex;gap:5px;margin-top:9px}
+  .dm-tok{flex:1;height:16px;border-radius:5px;border:1px dashed var(--line);background:#0E1B14}
+  .dm-tok.on{border:none;background:linear-gradient(135deg,#1E3A2C,#15281E)}
+  .stand{padding:13px 14px;display:flex;flex-direction:column;gap:8px}
+  .st-row{display:flex;align-items:center;gap:8px}
+  .st-rank{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-family:var(--disp);font-weight:700;font-size:10px;background:var(--surf);color:var(--ink2)}
+  .st-row.lead .st-rank{background:var(--gold);color:var(--bg)}
+  .st-bar{flex:1;height:7px;border-radius:99px;background:#0C1A13;overflow:hidden}
+  .st-bar i{display:block;height:100%;border-radius:99px;background:var(--emer)}
+  .st-row.lead .st-bar i{background:linear-gradient(90deg,var(--goldD),var(--gold))}
+  .sqgrid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;padding:12px}
+  .sqgrid i{aspect-ratio:1;border-radius:3px;background:#11201A}
+  .sqgrid i.own{background:#1E3A2C;box-shadow:inset 0 0 0 1px rgba(233,196,106,.3)}
+  .sqgrid i.win{background:var(--gold)}
+
+  /* leaderboard split */
+  .lb-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .lb-panel{border:1px solid var(--line);border-radius:14px;background:var(--bg2);padding:8px}
+  .lb-head{display:flex;justify-content:space-between;align-items:center;padding:13px 15px 11px}
+  .lb-head .t{font-family:var(--disp);font-weight:700;font-size:16px}
+  .lb-row{display:flex;align-items:center;gap:11px;padding:11px 15px;border-radius:10px;margin:2px 0}
+  .lb-row.lead{background:linear-gradient(110deg,#1A3326,#14271C);border:1px solid rgba(233,196,106,.3)}
+  .lb-rank{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--disp);font-weight:700;font-size:12px;background:var(--surf);color:var(--ink2)}
+  .lb-row.lead .lb-rank{background:var(--gold);color:var(--bg)}
+  .lb-name{flex:1;font-weight:600;font-size:14px}
+  .lb-pts{font-family:var(--mono);font-size:14px;font-weight:600}
+  .lb-row.lead .lb-pts{color:var(--gold)}
+  .lb-pts span{color:var(--ink3);font-size:11px}
+
+  /* CTA */
+  .cta{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .door{border:1px solid var(--line);border-radius:16px;padding:30px;background:var(--card);cursor:pointer;transition:transform .2s,border-color .2s}
+  .door:hover{transform:translateY(-3px)}
+  .door.host{border-color:rgba(233,196,106,.3)}
+  .door .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .door.host .role{color:var(--gold)} .door.play .role{color:var(--emer)}
+  .door h3{font-family:var(--disp);font-weight:700;font-size:23px;margin:9px 0 6px}
+  .door p{color:var(--ink2);font-size:14px;margin-bottom:20px}
+
+  footer{border-top:1px solid var(--line);padding:44px 0 36px}
+  .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .foot-note{color:var(--ink3);font-size:13px;max-width:38ch;margin-top:12px}
+  .foot-links{display:flex;gap:38px;flex-wrap:wrap}
+  .foot-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+  .foot-col a{display:block;color:var(--ink2);font-size:14px;margin-bottom:8px;transition:.2s}
+  .foot-col a:hover{color:var(--gold)}
+  .legal{margin-top:32px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono)}
+
+  .reveal{opacity:0;transform:translateY(20px)}
+  .js-anim .reveal{transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+  .js-anim .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:920px){
+    .hero-grid,.lb-grid,.cta{grid-template-columns:1fr;gap:32px}
+    .games{grid-template-columns:1fr}
+    .device{order:-1}
+    .navlinks{display:none}
+    .flow-row{grid-template-columns:40px 1fr;gap:14px}.flow-row .meta-tag{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+  <a class="brand" href="#top"><span class="chip"><svg width="20" height="20" viewBox="0 0 84 84"><defs><linearGradient id="ng" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0D285"/><stop offset="1" stop-color="#C99B3E"/></linearGradient></defs><path d="M27 60 L22 80 L42 68 L62 80 L57 60 Z" fill="#C99B3E"/><circle cx="42" cy="34" r="30" fill="url(#ng)"/><path d="M42 16 l5.4 12 13.2 1 -10 8.9 3 12.9 -11.6 -6.9 -11.6 6.9 3 -12.9 -10 -8.9 13.2 -1 Z" fill="#11201A"/></svg></span><span class="wordmark">Clubr<span class="gold">GO</span></span></a>
+  <div class="navlinks"><a href="#how">/ how-it-works</a><a href="#games">/ games</a><a href="#board">/ leaderboard</a><a href="#start">/ start</a></div>
+  <button class="btn btn-gold" onclick="go()">Start your club</button>
+</nav></div></header>
+
+<main id="top">
+<div class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <div class="tagrow">
+      <span class="tagchip">FT FANTASY</span><span class="tagchip">LAST LONGER</span><span class="tagchip">SQUARES</span>
+    </div>
+    <h1 class="disp">The scorekeeper for your club&rsquo;s <em>games.</em></h1>
+    <p class="lede">ClubrGO tracks every Fantasy draft, Last Longer and Squares grid your club plays &mdash; live, accurate, and rolled into one leaderboard that runs all season.</p>
+    <div class="hero-cta">
+      <button class="btn btn-gold btn-lg" onclick="go('host')">Start your club &rarr;</button>
+      <button class="btn btn-ghost btn-lg" onclick="document.getElementById('games').scrollIntoView()">Explore the games</button>
+    </div>
+    <div class="specrow">
+      <div class="spec"><div class="n">3</div><div class="l">Game types</div></div>
+      <div class="spec"><div class="n">1</div><div class="l">Club board</div></div>
+      <div class="spec"><div class="n">&infin;</div><div class="l">Seasons</div></div>
+    </div>
+  </div>
+
+  <div class="device reveal">
+    <div class="device-bar"><i></i><i></i><i></i><span class="url">clubrgo.app / felt-and-friends</span></div>
+    <div class="screen">
+      <div class="scr-top">
+        <span class="brand" style="font-size:15px"><span class="chip" style="width:26px;height:26px;border-radius:8px"><svg width="15" height="15" viewBox="0 0 84 84"><path d="M27 60 L22 80 L42 68 L62 80 L57 60 Z" fill="#C99B3E"/><circle cx="42" cy="34" r="30" fill="#E9C46A"/><path d="M42 16 l5.4 12 13.2 1 -10 8.9 3 12.9 -11.6 -6.9 -11.6 6.9 3 -12.9 -10 -8.9 13.2 -1 Z" fill="#11201A"/></svg></span><span class="wordmark">Clubr<span class="gold">GO</span></span></span>
+        <span class="pill on">Host</span>
+      </div>
+      <div class="scr-title disp">Games</div>
+      <div class="pills"><span class="pill on">Available 6</span><span class="pill">Playing 2</span><span class="pill">Hosting 1</span><span class="pill">Done 14</span></div>
+      <div class="gcard live">
+        <div class="gc-top"><span class="chip-mono c-purple">&#9824; FT Fantasy</span><div class="cd"><div class="l">Locks in</div><div class="t" id="cd1">00:47:10</div></div></div>
+        <div class="gc-title disp">WSOP Main &mdash; Final Table</div>
+        <div class="meta"><div><div class="k">Format</div><div class="v">Draft 4</div></div><div><div class="k">Finalists</div><div class="v">9</div></div><div><div class="k">Players</div><div class="v">32/40</div></div></div>
+      </div>
+      <div class="gcard">
+        <div class="gc-top"><span class="chip-mono c-emer">&#9638; Squares</span><div class="cd"><div class="l">Closes in</div><div class="t">33:57</div></div></div>
+        <div class="gc-title disp">Sunday Squares</div>
+      </div>
+    </div>
+  </div>
+</div></div></div>
+
+<!-- HOW IT WORKS (host flow as a spec table) -->
+<section id="how"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2 class="disp">From group chat to game night, in three steps.</h2>
+    <p>You run the night. ClubrGO keeps the score &mdash; and the leaderboard &mdash; so you don&rsquo;t have to.</p>
+  </div>
+  <div class="flow">
+    <div class="flow-row reveal"><span class="idx">01</span><div><h3 class="disp">Start your club</h3><p>Name it, pick an emoji. Your club is the home for every game and the season-long board.</p></div><span class="meta-tag">~20 sec</span></div>
+    <div class="flow-row reveal"><span class="idx">02</span><div><h3 class="disp">Spin up a game</h3><p>Choose Fantasy, Last Longer or Squares, set it up, and it goes live for your members.</p></div><span class="meta-tag">3 types</span></div>
+    <div class="flow-row reveal"><span class="idx">03</span><div><h3 class="disp">Share the link</h3><p>One link into your group chat. Players tap in &mdash; no setup, no chasing, no spreadsheet.</p></div><span class="meta-tag">1 link</span></div>
+  </div>
+</div></section>
+
+<!-- GAMES -->
+<section id="games"><div class="wrap">
+  <div class="sec-head reveal">
+    <h2 class="disp">Three games. One scorekeeper.</h2>
+    <p>Each tracked live, each scored the moment it ends, each feeding your club board.</p>
+  </div>
+  <div class="games">
+    <div class="gtile ft reveal"><div class="gtile-head"><span class="tag">&#9824; Fantasy</span><h3 class="disp">FT Fantasy</h3><p>Draft a final table of nine. Points by where your picks finish.</p></div>
+      <div class="gtile-demo"><div class="dm"><div class="dm-row"><span>BUDGET LEFT</span><span>PICKS 2/4</span></div><div class="dm-bar"><div class="dm-fill"></div></div><div class="dm-tokens"><div class="dm-tok on"></div><div class="dm-tok on"></div><div class="dm-tok"></div><div class="dm-tok"></div></div></div></div>
+    </div>
+    <div class="gtile ll reveal"><div class="gtile-head"><span class="tag">&#9670; Last Longer</span><h3 class="disp">Last Longer</h3><p>Last player standing. Counts update live; the board auto-sorts.</p></div>
+      <div class="gtile-demo"><div class="stand"><div class="st-row lead"><span class="st-rank">1</span><span class="st-bar"><i style="width:92%"></i></span></div><div class="st-row"><span class="st-rank">2</span><span class="st-bar"><i style="width:58%"></i></span></div><div class="st-row"><span class="st-rank">3</span><span class="st-bar"><i style="width:36%"></i></span></div></div></div>
+    </div>
+    <div class="gtile sq reveal"><div class="gtile-head"><span class="tag">&#9638; Squares</span><h3 class="disp">Squares</h3><p>Claim squares on the grid. Period scores light up winners.</p></div>
+      <div class="gtile-demo"><div class="sqgrid" id="sqgrid"></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- LEADERBOARD -->
+<section id="board"><div class="wrap"><div class="lb-grid">
+  <div class="reveal">
+    <span class="eyebrow">The club leaderboard</span>
+    <h2 class="disp" style="font-size:clamp(26px,3.2vw,38px);letter-spacing:-.02em;margin:12px 0 16px;line-height:1.1">One board.<br>All season long.</h2>
+    <p style="color:var(--ink2);font-size:16px;margin-bottom:12px">Every result &mdash; a Fantasy finish, a Last Longer win, a Squares period &mdash; rolls into a single club leaderboard. Points stack across all three games.</p>
+    <p style="color:var(--ink3);font-size:14px">Your regulars always have a reason to show up: the top of the board is never settled for long.</p>
+  </div>
+  <div class="lb-panel reveal">
+    <div class="lb-head"><span class="t disp">Felt &amp; Friends</span><span class="mono" style="font-size:11px;color:var(--ink3)">SEASON 2 &middot; WK 6</span></div>
+    <div id="lb"></div>
+  </div>
+</div></div></section>
+
+<!-- START -->
+<section id="start"><div class="wrap">
+  <div class="sec-head reveal" style="justify-content:center;text-align:center"><h2 class="disp" style="max-width:none">Two ways in.</h2></div>
+  <div class="cta">
+    <div class="door host reveal" onclick="go('host')"><span class="role">Host</span><h3 class="disp">Start your club</h3><p>Create a club, spin up your first game, share the link with your crew.</p><button class="btn btn-gold btn-lg">Create my club &rarr;</button></div>
+    <div class="door play reveal" onclick="go('play')"><span class="role">Play</span><h3 class="disp">Join your table</h3><p>Got an invite link? Paste it and you&rsquo;re in. Or browse clubs open to new players.</p><button class="btn btn-ghost btn-lg">I have an invite &rarr;</button></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div><a class="brand" href="#top"><span class="chip"><svg width="20" height="20" viewBox="0 0 84 84"><path d="M27 60 L22 80 L42 68 L62 80 L57 60 Z" fill="#C99B3E"/><circle cx="42" cy="34" r="30" fill="#E9C46A"/><path d="M42 16 l5.4 12 13.2 1 -10 8.9 3 12.9 -11.6 -6.9 -11.6 6.9 3 -12.9 -10 -8.9 13.2 -1 Z" fill="#11201A"/></svg></span><span class="wordmark">Clubr<span class="gold">GO</span></span></a><p class="foot-note">The transparent scorekeeper and club leaderboard for private clubs.</p></div>
+    <div class="foot-links">
+      <div class="foot-col"><h4>Product</h4><a href="#games">Games</a><a href="#how">How it works</a><a href="#board">Leaderboard</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy</a></div>
+      <div class="foot-col"><h4>Get started</h4><a href="#" onclick="go('host');return false">Start your club</a><a href="#" onclick="go('play');return false">Join a game</a></div>
+    </div>
+  </div>
+  <div class="legal"><span>&copy; 2026 ClubrGO &middot; the game scorekeeper &amp; club leaderboard</span><span>keep the score. play on.</span></div>
+</div></footer>
+
+<script>
+  function go(intent){try{sessionStorage.setItem('clubrgo_intent',intent||'choose')}catch(e){}
+    var t=document.getElementById('toast');t.textContent=intent==='play'?'Opening ClubrGO — paste your invite to join.':intent==='host'?'Opening ClubrGO — let\'s create your club.':'Opening ClubrGO…';
+    t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2200);}
+  (function(){var g=document.getElementById('sqgrid');if(!g)return;var n=45,own=[3,5,12,18,21,29,33,36,40],wins=[10,27,19,5];
+    for(var i=0;i<n;i++){var c=document.createElement('i');if(own.indexOf(i)>-1)c.className='own';g.appendChild(c)}
+    var idx=0;setInterval(function(){var cs=g.querySelectorAll('i');cs.forEach(function(c){c.classList.remove('win')});cs[wins[idx%wins.length]].classList.add('win');idx++},1600)})();
+  (function(){var el=document.getElementById('cd1');if(!el)return;var s=47*60+10;setInterval(function(){s--;if(s<0)s=47*60+10;var h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;el.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0')},1000)})();
+  (function(){var lb=document.getElementById('lb');if(!lb)return;
+    var rows=[['1','Gary "Grinder" P.','1,840',1],['2','Lena Park','1,620',0],['3','Sam Rivers','1,475',0],['4','Marcus Yu','1,290',0],['5','Priya N.','1,155',0]];
+    rows.forEach(function(r){var lead=r[3];var el=document.createElement('div');el.className='lb-row'+(lead?' lead':'');
+      el.innerHTML='<span class="lb-rank">'+r[0]+'</span><span class="lb-name">'+r[1]+'</span><span class="lb-pts">'+r[2]+'<span> pts</span></span>';lb.appendChild(el)})})();
+  document.documentElement.classList.add('js-anim');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+<div id="toast" style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:#E9C46A;color:#0B1410;font-family:'Space Grotesk',sans-serif;font-weight:600;padding:12px 20px;border-radius:10px;opacity:0;transition:.3s;z-index:99;pointer-events:none">·</div>
+<style>#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}</style>
+</body>
+</html>

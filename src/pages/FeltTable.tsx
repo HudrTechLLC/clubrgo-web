@@ -67,7 +67,8 @@ export function FeltTable() {
           </div>
         </section>
 
-        {/* host steps */}
+        {/* host steps — anchored under both /#hosts and /#how since the 3 steps ARE the how-it-works narrative */}
+        <div id="how" />
         <section id="hosts" className="mx-auto max-w-[1180px] px-6 py-[84px]">
           <SecHead eyebrow="You're the host" title="From group chat to game night in three taps." sub="You already run the night. ClubrGO keeps the score for the games on top of it — live standings, instant winners, and a leaderboard your regulars chase all season." />
           <div className="grid gap-5 md:grid-cols-3">

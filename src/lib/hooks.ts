@@ -38,3 +38,13 @@ export function useMovingWinner(wins: number[], intervalMs = 1600) {
   }, [intervalMs])
   return wins[idx]
 }
+
+/** Cycles an index 0..count-1 every `ms`, for rotating showcase cards. */
+export function useRotator(count: number, ms = 2000) {
+  const [i, setI] = useState(0)
+  useEffect(() => {
+    const t = setInterval(() => setI((v) => (v + 1) % count), ms)
+    return () => clearInterval(t)
+  }, [count, ms])
+  return i
+}

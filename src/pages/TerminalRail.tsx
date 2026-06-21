@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { BrandLogo } from '@/components/Logo'
 import { Chip, Btn, goToApp } from '@/components/Shared'
-import { useScrollReveal, useCountdown, useMovingWinner } from '@/lib/hooks'
+import { useScrollReveal, useCountdown, useMovingWinner, useRotator } from '@/lib/hooks'
 
 // =============================================================================
 // TerminalRail — the structured, product-led ClubrGO landing.
@@ -134,6 +134,59 @@ function SecHead({ title, sub }: { title: string; sub: string }) {
 }
 
 function DeviceMockup({ cd }: { cd: string }) {
+  const active = useRotator(3, 2000) // 0=FT Fantasy, 1=Last Longer, 2=Squares
+  const winner = useMovingWinner([10, 27, 19, 5])
+
+  const cards = [
+    // 0 — FT Fantasy
+    <div key="ft" className="relative overflow-hidden rounded-[14px] border border-gold/[0.22] bg-card p-3.5">
+      <span className="absolute inset-x-0 top-0 h-0.5 bg-[linear-gradient(90deg,var(--color-gold),transparent)]" />
+      <div className="mb-2 flex justify-between">
+        <Chip tone="purple">♠ FT Fantasy</Chip>
+        <div className="text-right"><div className="font-mono text-[9px] uppercase text-ink3">Locks in</div><div className="font-mono text-[14px] font-semibold text-gold">{cd}</div></div>
+      </div>
+      <div className="font-display text-[15px] font-bold">WSOP Main — Final Table</div>
+      <div className="mt-2 flex border-t border-line pt-2.5">
+        {[['Format', 'Draft 4'], ['Finalists', '9'], ['Players', '32/40']].map(([k, v], i) => (
+          <div key={k} className={`flex-1 ${i > 0 ? 'border-l border-line pl-2.5' : ''}`}><div className="font-mono text-[9px] uppercase tracking-[0.05em] text-ink3">{k}</div><div className="mt-0.5 font-display text-[13px] font-bold">{v}</div></div>
+        ))}
+      </div>
+    </div>,
+    // 1 — Last Longer
+    <div key="ll" className="relative overflow-hidden rounded-[14px] border border-gold/[0.22] bg-card p-3.5">
+      <span className="absolute inset-x-0 top-0 h-0.5 bg-[linear-gradient(90deg,var(--color-gold),transparent)]" />
+      <div className="mb-2 flex justify-between">
+        <Chip tone="blue">◆ Last Longer</Chip>
+        <div className="text-right"><div className="font-mono text-[9px] uppercase text-ink3">Next break</div><div className="font-mono text-[14px] font-semibold text-gold">01:59:47</div></div>
+      </div>
+      <div className="mb-2.5 font-display text-[15px] font-bold">Sunday Million — Last Longer</div>
+      <div className="flex flex-col gap-2 border-t border-line pt-2.5">
+        {([[1, 'Gary "Grinder" P.', 92, true], [2, 'Lena Park', 60, false], [3, 'Sam Rivers', 38, false]] as const).map(([r, name, w, lead]) => (
+          <div key={r} className="flex items-center gap-2">
+            <span className={`grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full font-display text-[10px] font-bold ${lead ? 'bg-gold text-bg' : 'bg-surf text-ink2'}`}>{r}</span>
+            <span className="w-[88px] shrink-0 truncate text-[11px] text-ink2">{name}</span>
+            <span className="h-[7px] flex-1 overflow-hidden rounded-full bg-[#0C1A13]"><i className="block h-full rounded-full" style={{ width: `${w}%`, background: lead ? 'linear-gradient(90deg,var(--color-goldD),var(--color-gold))' : 'var(--color-emer)' }} /></span>
+          </div>
+        ))}
+      </div>
+    </div>,
+    // 2 — Squares
+    <div key="sq" className="relative overflow-hidden rounded-[14px] border border-gold/[0.22] bg-card p-3.5">
+      <span className="absolute inset-x-0 top-0 h-0.5 bg-[linear-gradient(90deg,var(--color-gold),transparent)]" />
+      <div className="mb-2 flex justify-between">
+        <Chip tone="emer">▦ Squares</Chip>
+        <div className="text-right"><div className="font-mono text-[9px] uppercase text-ink3">Closes in</div><div className="font-mono text-[14px] font-semibold text-gold">33:57</div></div>
+      </div>
+      <div className="mb-2.5 font-display text-[15px] font-bold">Sunday Squares — Texans @ Colts</div>
+      <div className="grid grid-cols-10 gap-[3px] border-t border-line pt-2.5">
+        {Array.from({ length: 60 }).map((_, i) => {
+          const own = new Set([3, 5, 12, 18, 21, 29, 33, 36, 41, 47, 52])
+          return <i key={i} className={`block aspect-square rounded-[2px] ${i === winner ? 'bg-gold' : own.has(i) ? 'bg-raised shadow-[inset_0_0_0_1px_rgba(233,196,106,0.3)]' : 'bg-card'}`} />
+        })}
+      </div>
+    </div>,
+  ]
+
   return (
     <div className="reveal rounded-[18px] border border-line2 bg-[linear-gradient(160deg,#13241b,#0c1611)] p-3.5 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.7)]">
       <div className="flex items-center gap-1.5 px-1 pb-3">
@@ -146,19 +199,16 @@ function DeviceMockup({ cd }: { cd: string }) {
         <div className="flex flex-wrap gap-1.5 px-3.5 pb-1.5">
           <Chip tone="gold" className="!bg-gold !text-bg !border-gold">Available 6</Chip><Chip>Playing 2</Chip><Chip>Hosting 1</Chip><Chip>Done 14</Chip>
         </div>
-        <div className="relative m-3.5 overflow-hidden rounded-[14px] border border-gold/[0.22] bg-card p-3.5">
-          <span className="absolute inset-x-0 top-0 h-0.5 bg-[linear-gradient(90deg,var(--color-gold),transparent)]" />
-          <div className="mb-2 flex justify-between"><Chip tone="purple">♠ FT Fantasy</Chip><div className="text-right"><div className="font-mono text-[9px] uppercase text-ink3">Locks in</div><div className="font-mono text-[14px] font-semibold text-gold">{cd}</div></div></div>
-          <div className="font-display text-[15px] font-bold">WSOP Main — Final Table</div>
-          <div className="mt-2 flex border-t border-line pt-2.5">
-            {[['Format', 'Draft 4'], ['Finalists', '9'], ['Players', '32/40']].map(([k, v], i) => (
-              <div key={k} className={`flex-1 ${i > 0 ? 'border-l border-line pl-2.5' : ''}`}><div className="font-mono text-[9px] uppercase tracking-[0.05em] text-ink3">{k}</div><div className="mt-0.5 font-display text-[13px] font-bold">{v}</div></div>
-            ))}
-          </div>
-        </div>
-        <div className="mx-3.5 mb-3.5 rounded-[14px] border border-line bg-card p-3.5">
-          <div className="mb-2 flex justify-between"><Chip tone="emer">▦ Squares</Chip><div className="text-right"><div className="font-mono text-[9px] uppercase text-ink3">Closes in</div><div className="font-mono text-[14px] font-semibold text-gold">33:57</div></div></div>
-          <div className="font-display text-[15px] font-bold">Sunday Squares</div>
+        {/* rotating game card: crossfade between the three every 2s */}
+        <div className="relative m-3.5" style={{ minHeight: 176 }}>
+          {cards.map((card, i) => (
+            <div key={i} className="transition-opacity duration-500" style={{
+              opacity: active === i ? 1 : 0,
+              position: active === i ? 'relative' : 'absolute',
+              inset: active === i ? undefined : 0,
+              pointerEvents: active === i ? 'auto' : 'none',
+            }}>{card}</div>
+          ))}
         </div>
       </div>
     </div>

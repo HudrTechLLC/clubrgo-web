@@ -24,21 +24,10 @@ export function Btn({ variant = 'gold', lg = false, children, onClick, className
 }
 
 /**
- * App handoff. The ClubrGO app (app.clubrgo.app) is not yet deployed,
- * so this opens a waitlist email instead. When the app ships, replace
- * the mailto with: window.location.href = `https://app.clubrgo.app/?intent=${intent ?? ''}`
+ * App handoff. The ClubrGO app is live at qa.clubrgo.app, so every CTA
+ * ("Start your club", "Sign up", "Join a game") opens it directly. The app's
+ * own onboarding handles host-vs-play; we pass the intent as a hint.
  */
 export function goToApp(intent?: 'host' | 'play') {
-  const subject = intent === 'host'
-    ? "I'd like to host on ClubrGO"
-    : intent === 'play'
-      ? "I'd like to play on ClubrGO"
-      : "I'm interested in ClubrGO"
-  const body = intent === 'host'
-    ? "Hi — I want to run scorekeeping for my club's games (FT Fantasy, Last Longer, or Squares). Please add me to the host waitlist.\n\nClub name:\nApprox. members:\nGames I'd run:"
-    : intent === 'play'
-      ? "Hi — I want to play in club games my friends host on ClubrGO. Please add me to the player waitlist.\n\nClub I want to join (if any):\nName:"
-      : "Hi — please add me to the ClubrGO waitlist.\n\nWhat I want to do (host or play):\nName:"
-  const href = `mailto:hello@clubrgo.app?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  window.location.href = href
+  window.location.href = intent ? `https://qa.clubrgo.app/?intent=${intent}` : 'https://qa.clubrgo.app/'
 }

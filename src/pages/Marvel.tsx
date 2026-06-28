@@ -187,9 +187,9 @@ export function Marvel({ variant }: { variant: Variant }) {
         <section id="games" className="mx-auto max-w-[1180px] px-5 pb-[72px]">
           <SecHead eyebrow="Three games, one scorekeeper" title="The games your table already plays." sub="Each scored live, with every result feeding your club leaderboard." />
           <div className="grid gap-4 md:grid-cols-3">
-            <GameTile acc="pu" tag="♠ Fantasy" h="FT Fantasy" p="Draft a final table of nine. Score by where your picks finish — highest total wins." demo={<DraftDemo />} />
-            <GameTile acc="g"  tag="◆ Last Longer" h="Last Longer" p="Last player standing wins. Counts update live; the board auto-sorts in real time." demo={<StandingsDemo />} />
-            <GameTile acc="em" tag="▦ Squares" h="Squares" p="Claim squares on a provably-fair grid. Unwon quarters roll onto Q4 — an unwon Q4 carries to your next game." demo={<SquaresDemo />} />
+            <GameTile acc="pu" tag="♠ Fantasy" h="FT Fantasy" p="Draft a final table of nine. Score by where your picks finish — highest total wins." demo={<DraftDemo />} img={ASSET('games/fantasy.png')} />
+            <GameTile acc="g"  tag="◆ Last Longer" h="Last Longer" p="Last player standing wins. Counts update live; the board auto-sorts in real time." demo={<StandingsDemo />} img={ASSET('games/lastlonger.png')} />
+            <GameTile acc="em" tag="▦ Squares" h="Squares" p="Claim squares on a provably-fair grid. Unwon quarters roll onto Q4 — an unwon Q4 carries to your next game." demo={<SquaresDemo />} img={ASSET('games/squares.png')} />
           </div>
         </section>
 
@@ -313,14 +313,21 @@ function Feat({ acc, icon, h, p, badge }: { acc: string; icon: string; h: string
   )
 }
 
-function GameTile({ acc, tag, h, p, demo }: { acc: string; tag: string; h: string; p: string; demo: React.ReactNode }) {
+function GameTile({ acc, tag, h, p, demo, img }: { acc: string; tag: string; h: string; p: string; demo: React.ReactNode; img: string }) {
   return (
-    <Reveal className="tilt glass edge relative rounded-[20px] p-6">
+    <Reveal className="tilt glass edge relative overflow-hidden rounded-[20px]">
       <div style={{ ['--acc' as string]: ACC[acc] } as React.CSSProperties}>
-        <span className="font-mono text-[11px] uppercase tracking-[0.08em]" style={{ color: ACC[acc] }}>{tag}</span>
-        <h3 className="my-2 font-display text-[22px] font-semibold">{h}</h3>
-        <p className="mb-4 text-[14.5px] leading-relaxed text-ink2">{p}</p>
-        <div className="h-[92px] overflow-hidden rounded-xl border border-line bg-bg2">{demo}</div>
+        {/* AI showcase image — fades into the card body */}
+        <div className="relative h-[180px] overflow-hidden">
+          <img src={img} alt={h} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 45%,var(--color-card))' }} />
+          <span className="absolute left-5 top-4 font-mono text-[11px] font-semibold uppercase tracking-[0.08em]" style={{ color: ACC[acc] }}>{tag}</span>
+        </div>
+        <div className="px-6 pb-6 pt-1">
+          <h3 className="mb-1.5 font-display text-[22px] font-semibold">{h}</h3>
+          <p className="mb-4 text-[14.5px] leading-relaxed text-ink2">{p}</p>
+          <div className="h-[80px] overflow-hidden rounded-xl border border-line bg-bg2">{demo}</div>
+        </div>
       </div>
     </Reveal>
   )

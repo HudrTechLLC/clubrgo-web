@@ -40,7 +40,7 @@ export function MomentsShowcase() {
             <button type="button" onClick={(e) => fire(m.kind, e.currentTarget.getBoundingClientRect())} className="block w-full cursor-pointer text-left">
               <div className="relative h-[120px] overflow-hidden">
                 {m.img ? (
-                  <img src={m.img} alt={m.h} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                  <img src={m.img} alt={m.h} loading="lazy" className="absolute inset-0 h-full w-full object-cover floatpic" />
                 ) : (
                   <div className="absolute inset-0 grid place-items-center text-[44px]">{m.emoji}</div>
                 )}

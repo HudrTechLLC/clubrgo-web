@@ -119,7 +119,21 @@ const CSS = `
 .mv section[id]{scroll-margin-top:118px}
 @media(min-width:768px){.mv section[id]{scroll-margin-top:84px}}
 .mv .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
-.mv .no-scrollbar::-webkit-scrollbar{display:none}`
+.mv .no-scrollbar::-webkit-scrollbar{display:none}
+/* Creative levitation for card imagery — a family of drift styles (bob, sideways,
+   an orbit tracing a little square, diagonal, tilt-sway) cycled across cards so no
+   two move alike. A slight zoom baseline keeps the motion inside the crop. */
+@keyframes mv-fl-up{0%,100%{transform:scale(1.07) translate3d(0,0,0)}50%{transform:scale(1.07) translate3d(0,-9px,0)}}
+@keyframes mv-fl-side{0%,100%{transform:scale(1.07) translate3d(-8px,0,0)}50%{transform:scale(1.07) translate3d(8px,0,0)}}
+@keyframes mv-fl-orbit{0%,100%{transform:scale(1.09) translate3d(0,0,0)}25%{transform:scale(1.09) translate3d(8px,-7px,0)}50%{transform:scale(1.09) translate3d(0,-11px,0)}75%{transform:scale(1.09) translate3d(-8px,-7px,0)}}
+@keyframes mv-fl-diag{0%,100%{transform:scale(1.08) translate3d(0,0,0) rotate(0deg)}50%{transform:scale(1.08) translate3d(-8px,-8px,0) rotate(-1.2deg)}}
+@keyframes mv-fl-sway{0%,100%{transform:scale(1.08) rotate(-1.3deg) translate3d(0,0,0)}50%{transform:scale(1.08) rotate(1.3deg) translate3d(0,-7px,0)}}
+.mv .floatpic{will-change:transform;animation:mv-fl-up 7s ease-in-out infinite}
+.mv .grid > :nth-child(5n+1) .floatpic{animation:mv-fl-up 7.2s ease-in-out -1.1s infinite}
+.mv .grid > :nth-child(5n+2) .floatpic{animation:mv-fl-side 8.6s ease-in-out -2.4s infinite}
+.mv .grid > :nth-child(5n+3) .floatpic{animation:mv-fl-orbit 9.4s ease-in-out -3.6s infinite}
+.mv .grid > :nth-child(5n+4) .floatpic{animation:mv-fl-diag 7.7s ease-in-out -4.8s infinite}
+.mv .grid > :nth-child(5n+5) .floatpic{animation:mv-fl-sway 8.1s ease-in-out -6s infinite}`
 
 export function Marvel({ variant }: { variant: Variant }) {
   const t = THEMES[variant]
@@ -314,7 +328,7 @@ function Feat({ acc, img, h, p, badge }: { acc: string; img: string; h: string; 
       <div style={{ ['--acc' as string]: ACC[acc] } as React.CSSProperties}>
         {/* AI illustration header — fades into the card body */}
         <div className="relative h-[140px] overflow-hidden">
-          <img src={img} alt={h} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={img} alt={h} loading="lazy" className="absolute inset-0 h-full w-full object-cover floatpic" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 42%,var(--color-card))' }} />
         </div>
         <div className="px-5 pb-5 pt-1">
@@ -335,7 +349,7 @@ function GameTile({ acc, tag, h, p, demo, img }: { acc: string; tag: string; h: 
       <div style={{ ['--acc' as string]: ACC[acc] } as React.CSSProperties}>
         {/* AI showcase image — fades into the card body */}
         <div className="relative h-[180px] overflow-hidden">
-          <img src={img} alt={h} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={img} alt={h} loading="lazy" className="absolute inset-0 h-full w-full object-cover floatpic" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 45%,var(--color-card))' }} />
           <span className="absolute left-5 top-4 font-mono text-[11px] font-semibold uppercase tracking-[0.08em]" style={{ color: ACC[acc] }}>{tag}</span>
         </div>

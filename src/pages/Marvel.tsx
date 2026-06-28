@@ -5,6 +5,7 @@ import { Chip, Btn, goToApp } from '@/components/Shared'
 import { useCountdown, useMovingWinner } from '@/lib/hooks'
 import { Reveal } from '@/lib/motion'
 import { SplineHero } from '@/components/Spatial'
+import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
 // =============================================================================
 // Marvel — the stunning, animated, spatial ClubrGO landing, rendered in three
@@ -239,6 +240,9 @@ export function Marvel({ variant }: { variant: Variant }) {
           <span className="font-mono">Keep the score. Play on.</span>
         </div>
       </footer>
+
+      {/* In-page theme switcher — flip between the three art directions. */}
+      <ThemeSwitcher current={variant} />
     </div>
   )
 }

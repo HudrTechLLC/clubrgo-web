@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-// Floating section-nav pill — fixed near the top-center and travels with the page
-// so any section is one tap away without scrolling back up. Horizontally
-// scrollable on small screens; highlights the section currently in view.
+// Floating section-nav pill — HIDDEN at the top (the header menu is the nav there)
+// and slides in once you scroll past the header, so it never duplicates the header.
+// Leads with a "Top" pill to jump back up, and highlights the section in view.
 const LINKS = [
   { id: 'features', label: 'Features' },
   { id: 'games', label: 'Games' },
@@ -13,6 +13,15 @@ const LINKS = [
 
 export function FloatingNav() {
   const [active, setActive] = useState('')
+  const [shown, setShown] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShown(window.scrollY > 220)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) }),
@@ -23,8 +32,18 @@ export function FloatingNav() {
   }, [])
 
   return (
-    <div className="fixed left-1/2 top-2.5 z-[60] -translate-x-1/2">
-      <nav className="no-scrollbar flex max-w-[86vw] items-center gap-0.5 overflow-x-auto rounded-full border border-white/12 bg-black/50 p-1 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.6)] backdrop-blur-md">
+    <div
+      className={`fixed left-1/2 top-2.5 z-[60] -translate-x-1/2 transition-all duration-300 ${shown ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'}`}
+    >
+      <nav className="no-scrollbar flex max-w-[92vw] items-center gap-0.5 overflow-x-auto rounded-full border border-white/12 bg-black/55 p-1 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.6)] backdrop-blur-md">
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top"
+          className="flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-white/10 px-3 py-1.5 text-[13px] font-bold text-white transition-colors hover:bg-white/20"
+        >
+          ↑ Top
+        </button>
         {LINKS.map((l) => {
           const on = active === l.id
           return (

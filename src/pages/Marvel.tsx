@@ -147,6 +147,13 @@ export function Marvel({ variant }: { variant: Variant }) {
       <header className="sticky top-0 z-50 border-b border-line glass">
         <div className="mx-auto flex h-[66px] max-w-[1180px] items-center justify-between px-5">
           <Link to={`/${variant}`}><BrandLogo /></Link>
+          <nav className="hidden items-center gap-7 md:flex">
+            <a href="#features" className="text-sm text-ink2 hover:text-ink">Features</a>
+            <a href="#games" className="text-sm text-ink2 hover:text-ink">Games</a>
+            <a href="#moments" className="text-sm text-ink2 hover:text-ink">Moments</a>
+            <a href="#how" className="text-sm text-ink2 hover:text-ink">How it works</a>
+            <a href="#board" className="text-sm text-ink2 hover:text-ink">Leaderboard</a>
+          </nav>
           <Btn onClick={() => goToApp('host')}>Sign up</Btn>
         </div>
       </header>

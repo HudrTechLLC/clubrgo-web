@@ -30,7 +30,7 @@ const ASSET = (p: string) => `/assets/${p}`
 const THEMES: Record<Variant, Theme> = {
   aurora: {
     mode: 'dark',
-    hero: ASSET('aurora/hero-bg.png'),
+    hero: ASSET('aurora/hero-bg.webp'),
     eyebrow: 'For the host who runs the night',
     // spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode', // trophy — phone-deck hero preferred for now
     spline: undefined as string | undefined,
@@ -49,7 +49,7 @@ const THEMES: Record<Variant, Theme> = {
   },
   daylight: {
     mode: 'light',
-    hero: ASSET('daylight/hero-bg.png'),
+    hero: ASSET('daylight/hero-bg.webp'),
     eyebrow: 'The friendliest way to run game night',
     // spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode', // trophy — phone-deck hero preferred for now
     spline: undefined as string | undefined,
@@ -68,7 +68,7 @@ const THEMES: Record<Variant, Theme> = {
   },
   stadium: {
     mode: 'dark',
-    hero: ASSET('stadium/hero-bg.png'),
+    hero: ASSET('stadium/hero-bg.webp'),
     eyebrow: 'Live scorekeeping with broadcast energy',
     // spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode', // trophy — phone-deck hero preferred for now
     spline: undefined as string | undefined,
@@ -171,15 +171,15 @@ export function Marvel({ variant }: { variant: Variant }) {
         <section id="features" className="mx-auto max-w-[1180px] px-5 py-[72px]">
           <SecHead eyebrow="Everything your club night needs" title="One app. Every part of the night, covered." sub="From the first invite to the season trophy — scored live, settled fair, and remembered forever." />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Feat acc="g"  img={ASSET('features/games.png')} h="Three live games" p="FT Fantasy, Last Longer and Squares — each scored in real time with a clear winner the moment it ends." />
-            <Feat acc="em" img={ASSET('features/leaderboard.png')} h="Season-long leaderboard" p="Every result stacks into one club board. Your regulars chase the crown all season." />
-            <Feat acc="pu" img={ASSET('features/fair.png')} h="Provably-fair Squares" p="The grid is shuffled from a sealed seed — anyone can verify the draw. No 'trust me'." />
-            <Feat acc="g"  img={ASSET('features/rollover.png')} h="Rollover that carries" p="Unwon quarters roll onto Q4. An unwon Q4 carries its whole pool into your next game — automatically." badge="New" />
-            <Feat acc="bl" img={ASSET('features/filters.png')} h="Live filters" p="Flip between Live and Finished, filter by game type — a pinned summary keeps your place as you scroll." badge="New" />
-            <Feat acc="em" img={ASSET('features/avatars.png')} h="Profile avatars & emblems" p="Players pick an avatar; clubs get a 3-D emblem. Your table looks like your table." badge="New" />
-            <Feat acc="pu" img={ASSET('features/chat.png')} h="Runs in your group chat" p="Drop one link in the chat — players tap in, no account hoops. Optional Telegram broadcast." />
-            <Feat acc="bl" img={ASSET('features/private.png')} h="Private clubs" p="Invite-only by default. You decide who sees the games and who's on the board." />
-            <Feat acc="rd" img={ASSET('features/winners.png')} h="Instant winners" p="The moment a game settles, the winner is crowned and the stakes are tallied — no spreadsheets." />
+            <Feat acc="g"  img={ASSET('features/games.webp')} h="Three live games" p="FT Fantasy, Last Longer and Squares — each scored in real time with a clear winner the moment it ends." />
+            <Feat acc="em" img={ASSET('features/leaderboard.webp')} h="Season-long leaderboard" p="Every result stacks into one club board. Your regulars chase the crown all season." />
+            <Feat acc="pu" img={ASSET('features/fair.webp')} h="Provably-fair Squares" p="The grid is shuffled from a sealed seed — anyone can verify the draw. No 'trust me'." />
+            <Feat acc="g"  img={ASSET('features/rollover.webp')} h="Rollover that carries" p="Unwon quarters roll onto Q4. An unwon Q4 carries its whole pool into your next game — automatically." badge="New" />
+            <Feat acc="bl" img={ASSET('features/filters.webp')} h="Live filters" p="Flip between Live and Finished, filter by game type — a pinned summary keeps your place as you scroll." badge="New" />
+            <Feat acc="em" img={ASSET('features/avatars.webp')} h="Profile avatars & emblems" p="Players pick an avatar; clubs get a 3-D emblem. Your table looks like your table." badge="New" />
+            <Feat acc="pu" img={ASSET('features/chat.webp')} h="Runs in your group chat" p="Drop one link in the chat — players tap in, no account hoops. Optional Telegram broadcast." />
+            <Feat acc="bl" img={ASSET('features/private.webp')} h="Private clubs" p="Invite-only by default. You decide who sees the games and who's on the board." />
+            <Feat acc="rd" img={ASSET('features/winners.webp')} h="Instant winners" p="The moment a game settles, the winner is crowned and the stakes are tallied — no spreadsheets." />
           </div>
         </section>
 
@@ -187,9 +187,9 @@ export function Marvel({ variant }: { variant: Variant }) {
         <section id="games" className="mx-auto max-w-[1180px] px-5 pb-[72px]">
           <SecHead eyebrow="Three games, one scorekeeper" title="The games your table already plays." sub="Each scored live, with every result feeding your club leaderboard." />
           <div className="grid gap-4 md:grid-cols-3">
-            <GameTile acc="pu" tag="♠ Fantasy" h="FT Fantasy" p="Draft a final table of nine. Score by where your picks finish — highest total wins." demo={<DraftDemo />} img={ASSET('games/fantasy.png')} />
-            <GameTile acc="g"  tag="◆ Last Longer" h="Last Longer" p="Last player standing wins. Counts update live; the board auto-sorts in real time." demo={<StandingsDemo />} img={ASSET('games/lastlonger.png')} />
-            <GameTile acc="em" tag="▦ Squares" h="Squares" p="Claim squares on a provably-fair grid. Unwon quarters roll onto Q4 — an unwon Q4 carries to your next game." demo={<SquaresDemo />} img={ASSET('games/squares.png')} />
+            <GameTile acc="pu" tag="♠ Fantasy" h="FT Fantasy" p="Draft a final table of nine. Score by where your picks finish — highest total wins." demo={<DraftDemo />} img={ASSET('games/fantasy.webp')} />
+            <GameTile acc="g"  tag="◆ Last Longer" h="Last Longer" p="Last player standing wins. Counts update live; the board auto-sorts in real time." demo={<StandingsDemo />} img={ASSET('games/lastlonger.webp')} />
+            <GameTile acc="em" tag="▦ Squares" h="Squares" p="Claim squares on a provably-fair grid. Unwon quarters roll onto Q4 — an unwon Q4 carries to your next game." demo={<SquaresDemo />} img={ASSET('games/squares.webp')} />
           </div>
         </section>
 

@@ -32,7 +32,8 @@ const THEMES: Record<Variant, Theme> = {
     mode: 'dark',
     hero: ASSET('aurora/hero-bg.png'),
     eyebrow: 'For the host who runs the night',
-    spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode',
+    // spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode', // trophy — phone-deck hero preferred for now
+    spline: undefined as string | undefined,
     vars: {
       '--color-bg': '#070D0A', '--color-bg2': '#05080A', '--color-card': '#11161A',
       '--color-surf': '#171E22', '--color-raised': '#222B30', '--color-line': '#26303A',
@@ -50,7 +51,8 @@ const THEMES: Record<Variant, Theme> = {
     mode: 'light',
     hero: ASSET('daylight/hero-bg.png'),
     eyebrow: 'The friendliest way to run game night',
-    spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode',
+    // spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode', // trophy — phone-deck hero preferred for now
+    spline: undefined as string | undefined,
     vars: {
       '--color-bg': '#F6F8F4', '--color-bg2': '#EDF0EA', '--color-card': '#FFFFFF',
       '--color-surf': '#F0F3EC', '--color-raised': '#E7ECE2', '--color-line': '#E1E6DB',
@@ -68,7 +70,8 @@ const THEMES: Record<Variant, Theme> = {
     mode: 'dark',
     hero: ASSET('stadium/hero-bg.png'),
     eyebrow: 'Live scorekeeping with broadcast energy',
-    spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode',
+    // spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode', // trophy — phone-deck hero preferred for now
+    spline: undefined as string | undefined,
     vars: {
       '--color-bg': '#070C09', '--color-bg2': '#040705', '--color-card': '#0E1712',
       '--color-surf': '#14201A', '--color-raised': '#1D2E25', '--color-line': '#21342A',

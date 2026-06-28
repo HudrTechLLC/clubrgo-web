@@ -170,9 +170,9 @@ export function Marvel({ variant }: { variant: Variant }) {
           <div className="relative z-10 mx-auto grid max-w-[1180px] items-center gap-[46px] px-5 pt-[64px] pb-[56px] md:grid-cols-[1.05fr_.95fr]">
             <Reveal>
               <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-gold">{t.eyebrow}</span>
-              <h1 className="my-4 font-display text-[clamp(40px,6.2vw,70px)] font-bold leading-[1.01] tracking-[-0.02em]">
+              <h1 className="my-4 max-w-full font-display text-[clamp(30px,7vw,70px)] font-bold leading-[1.04] tracking-[-0.02em] [overflow-wrap:break-word]">
                 Run your game night.<br />
-                <span className="relative whitespace-nowrap" style={{ background: 'linear-gradient(120deg,var(--color-gold),var(--color-ink) 62%,var(--color-goldD))', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Keep the score honest.</span>
+                <span className="relative" style={{ background: 'linear-gradient(120deg,var(--color-gold),var(--color-ink) 62%,var(--color-goldD))', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Keep the score honest.</span>
               </h1>
               <p className="mb-7 max-w-[36ch] text-[18px] leading-relaxed text-ink2">
                 ClubrGO is the scorekeeper for your club&rsquo;s games — Fantasy, Last Longer &amp; Squares — tracked live and scored fair, with a club leaderboard that crowns your regulars season after season.

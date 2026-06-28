@@ -6,6 +6,7 @@ import { useCountdown, useMovingWinner } from '@/lib/hooks'
 import { Reveal } from '@/lib/motion'
 import { SplineHero } from '@/components/Spatial'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
+import { MomentsShowcase } from '@/components/MomentsShowcase'
 
 // =============================================================================
 // Marvel — the stunning, animated, spatial ClubrGO landing, rendered in three
@@ -134,6 +135,7 @@ export function Marvel({ variant }: { variant: Variant }) {
           <nav className="hidden items-center gap-8 md:flex">
             <a href="#features" className="text-sm text-ink2 hover:text-ink">Features</a>
             <a href="#games" className="text-sm text-ink2 hover:text-ink">Games</a>
+            <a href="#moments" className="text-sm text-ink2 hover:text-ink">Moments</a>
             <a href="#how" className="text-sm text-ink2 hover:text-ink">How it works</a>
             <a href="#board" className="text-sm text-ink2 hover:text-ink">Leaderboard</a>
           </nav>
@@ -144,6 +146,7 @@ export function Marvel({ variant }: { variant: Variant }) {
         <nav className="no-scrollbar flex gap-5 overflow-x-auto border-t border-line/60 px-5 py-2.5 md:hidden">
           <a href="#features" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Features</a>
           <a href="#games" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Games</a>
+          <a href="#moments" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Moments</a>
           <a href="#how" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">How it works</a>
           <a href="#board" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Leaderboard</a>
         </nav>
@@ -205,6 +208,9 @@ export function Marvel({ variant }: { variant: Variant }) {
             <GameTile acc="em" tag="▦ Squares" h="Squares" p="Claim squares on a provably-fair grid. Unwon quarters roll onto Q4 — an unwon Q4 carries to your next game." demo={<SquaresDemo />} img={ASSET('games/squares.webp')} />
           </div>
         </section>
+
+        {/* big moments — interactive celebration showcase */}
+        <MomentsShowcase />
 
         {/* how */}
         <section id="how" className="mx-auto max-w-[1180px] px-5 py-[20px]">

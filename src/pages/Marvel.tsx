@@ -32,7 +32,7 @@ const THEMES: Record<Variant, Theme> = {
     mode: 'dark',
     hero: ASSET('aurora/hero-bg.png'),
     eyebrow: 'For the host who runs the night',
-    // spline: 'https://prod.spline.design/XXXX/scene.splinecode',
+    spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode',
     vars: {
       '--color-bg': '#070D0A', '--color-bg2': '#05080A', '--color-card': '#11161A',
       '--color-surf': '#171E22', '--color-raised': '#222B30', '--color-line': '#26303A',
@@ -50,7 +50,7 @@ const THEMES: Record<Variant, Theme> = {
     mode: 'light',
     hero: ASSET('daylight/hero-bg.png'),
     eyebrow: 'The friendliest way to run game night',
-    // spline: '',
+    spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode',
     vars: {
       '--color-bg': '#F6F8F4', '--color-bg2': '#EDF0EA', '--color-card': '#FFFFFF',
       '--color-surf': '#F0F3EC', '--color-raised': '#E7ECE2', '--color-line': '#E1E6DB',
@@ -68,7 +68,7 @@ const THEMES: Record<Variant, Theme> = {
     mode: 'dark',
     hero: ASSET('stadium/hero-bg.png'),
     eyebrow: 'Live scorekeeping with broadcast energy',
-    // spline: '',
+    spline: 'https://prod.spline.design/t7iO-gf5FBfUkyTO/scene.splinecode',
     vars: {
       '--color-bg': '#070C09', '--color-bg2': '#040705', '--color-card': '#0E1712',
       '--color-surf': '#14201A', '--color-raised': '#1D2E25', '--color-line': '#21342A',
@@ -158,7 +158,7 @@ export function Marvel({ variant }: { variant: Variant }) {
                 <span><span className="text-purple">●</span> Provably-fair &amp; <b className="font-semibold text-ink2">tamper-proof</b></span>
               </div>
             </Reveal>
-            <div className="min-h-[460px]">
+            <div className="h-[440px] md:h-[540px]">
               <SplineHero scene={t.spline} fallback={<HeroDeck cd={cd} />} />
             </div>
           </div>

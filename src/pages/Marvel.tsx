@@ -7,6 +7,7 @@ import { Reveal } from '@/lib/motion'
 import { SplineHero } from '@/components/Spatial'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 import { MomentsShowcase } from '@/components/MomentsShowcase'
+import { FloatingNav } from '@/components/FloatingNav'
 
 // =============================================================================
 // Marvel — the stunning, animated, spatial ClubrGO landing, rendered in three
@@ -132,25 +133,12 @@ export function Marvel({ variant }: { variant: Variant }) {
       <header className="sticky top-0 z-50 border-b border-line glass">
         <div className="mx-auto flex h-[66px] max-w-[1180px] items-center justify-between px-5">
           <Link to={`/${variant}`}><BrandLogo /></Link>
-          <nav className="hidden items-center gap-8 md:flex">
-            <a href="#features" className="text-sm text-ink2 hover:text-ink">Features</a>
-            <a href="#games" className="text-sm text-ink2 hover:text-ink">Games</a>
-            <a href="#moments" className="text-sm text-ink2 hover:text-ink">Moments</a>
-            <a href="#how" className="text-sm text-ink2 hover:text-ink">How it works</a>
-            <a href="#board" className="text-sm text-ink2 hover:text-ink">Leaderboard</a>
-          </nav>
           <Btn onClick={() => goToApp('host')}>Sign up</Btn>
         </div>
-        {/* Mobile section nav — sticky with the header (scrolls horizontally) so you
-            can jump between sections without scrolling back to the top. */}
-        <nav className="no-scrollbar flex gap-5 overflow-x-auto border-t border-line/60 px-5 py-2.5 md:hidden">
-          <a href="#features" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Features</a>
-          <a href="#games" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Games</a>
-          <a href="#moments" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Moments</a>
-          <a href="#how" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">How it works</a>
-          <a href="#board" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Leaderboard</a>
-        </nav>
       </header>
+
+      {/* Floating section-nav pill — travels with the page; section links live here. */}
+      <FloatingNav />
 
       <main className="relative z-10">
         {/* hero — AI backdrop + spatial 3-D slot */}

@@ -171,15 +171,15 @@ export function Marvel({ variant }: { variant: Variant }) {
         <section id="features" className="mx-auto max-w-[1180px] px-5 py-[72px]">
           <SecHead eyebrow="Everything your club night needs" title="One app. Every part of the night, covered." sub="From the first invite to the season trophy — scored live, settled fair, and remembered forever." />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Feat acc="g"  icon="🏆" h="Three live games" p="FT Fantasy, Last Longer and Squares — each scored in real time with a clear winner the moment it ends." />
-            <Feat acc="em" icon="📊" h="Season-long leaderboard" p="Every result stacks into one club board. Your regulars chase the crown all season." />
-            <Feat acc="pu" icon="🔒" h="Provably-fair Squares" p="The grid is shuffled from a sealed seed — anyone can verify the draw. No 'trust me'." />
-            <Feat acc="g"  icon="🔁" h="Rollover that carries" p="Unwon quarters roll onto Q4. An unwon Q4 carries its whole pool into your next game — automatically." badge="New" />
-            <Feat acc="bl" icon="⚡" h="Live filters" p="Flip between Live and Finished, filter by game type — a pinned summary keeps your place as you scroll." badge="New" />
-            <Feat acc="em" icon="🎴" h="Profile avatars & emblems" p="Players pick an avatar; clubs get a 3-D emblem. Your table looks like your table." badge="New" />
-            <Feat acc="pu" icon="💬" h="Runs in your group chat" p="Drop one link in the chat — players tap in, no account hoops. Optional Telegram broadcast." />
-            <Feat acc="bl" icon="🛡️" h="Private clubs" p="Invite-only by default. You decide who sees the games and who's on the board." />
-            <Feat acc="rd" icon="🥇" h="Instant winners" p="The moment a game settles, the winner is crowned and the stakes are tallied — no spreadsheets." />
+            <Feat acc="g"  img={ASSET('features/games.png')} h="Three live games" p="FT Fantasy, Last Longer and Squares — each scored in real time with a clear winner the moment it ends." />
+            <Feat acc="em" img={ASSET('features/leaderboard.png')} h="Season-long leaderboard" p="Every result stacks into one club board. Your regulars chase the crown all season." />
+            <Feat acc="pu" img={ASSET('features/fair.png')} h="Provably-fair Squares" p="The grid is shuffled from a sealed seed — anyone can verify the draw. No 'trust me'." />
+            <Feat acc="g"  img={ASSET('features/rollover.png')} h="Rollover that carries" p="Unwon quarters roll onto Q4. An unwon Q4 carries its whole pool into your next game — automatically." badge="New" />
+            <Feat acc="bl" img={ASSET('features/filters.png')} h="Live filters" p="Flip between Live and Finished, filter by game type — a pinned summary keeps your place as you scroll." badge="New" />
+            <Feat acc="em" img={ASSET('features/avatars.png')} h="Profile avatars & emblems" p="Players pick an avatar; clubs get a 3-D emblem. Your table looks like your table." badge="New" />
+            <Feat acc="pu" img={ASSET('features/chat.png')} h="Runs in your group chat" p="Drop one link in the chat — players tap in, no account hoops. Optional Telegram broadcast." />
+            <Feat acc="bl" img={ASSET('features/private.png')} h="Private clubs" p="Invite-only by default. You decide who sees the games and who's on the board." />
+            <Feat acc="rd" img={ASSET('features/winners.png')} h="Instant winners" p="The moment a game settles, the winner is crowned and the stakes are tallied — no spreadsheets." />
           </div>
         </section>
 
@@ -298,16 +298,22 @@ function SecHead({ eyebrow, title, sub }: { eyebrow: string; title: string; sub:
 }
 
 const ACC: Record<string, string> = { g: 'var(--color-gold)', em: 'var(--color-emer)', pu: 'var(--color-purple)', bl: 'var(--color-blue)', rd: 'var(--color-red)' }
-function Feat({ acc, icon, h, p, badge }: { acc: string; icon: string; h: string; p: string; badge?: string }) {
+function Feat({ acc, img, h, p, badge }: { acc: string; img: string; h: string; p: string; badge?: string }) {
   return (
-    <Reveal className="tilt glass edge relative rounded-[18px] p-5" >
+    <Reveal className="tilt glass edge relative overflow-hidden rounded-[18px]">
       <div style={{ ['--acc' as string]: ACC[acc] } as React.CSSProperties}>
-        <div className="mb-3 grid h-11 w-11 place-items-center rounded-[13px] border border-line bg-white/5 text-[22px]">{icon}</div>
-        <div className="flex items-center gap-2">
-          <h3 className="font-display text-[17px] font-semibold">{h}</h3>
-          {badge && <span className="rounded-full px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide" style={{ color: ACC[acc], background: 'rgba(127,127,127,.12)' }}>{badge}</span>}
+        {/* AI illustration header — fades into the card body */}
+        <div className="relative h-[140px] overflow-hidden">
+          <img src={img} alt={h} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 42%,var(--color-card))' }} />
         </div>
-        <p className="mt-1.5 text-[14px] leading-relaxed text-ink2">{p}</p>
+        <div className="px-5 pb-5 pt-1">
+          <div className="flex items-center gap-2">
+            <h3 className="font-display text-[17px] font-semibold">{h}</h3>
+            {badge && <span className="rounded-full px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wide" style={{ color: ACC[acc], background: 'rgba(127,127,127,.12)' }}>{badge}</span>}
+          </div>
+          <p className="mt-1.5 text-[14px] leading-relaxed text-ink2">{p}</p>
+        </div>
       </div>
     </Reveal>
   )

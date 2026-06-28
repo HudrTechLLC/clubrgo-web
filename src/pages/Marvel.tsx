@@ -113,7 +113,11 @@ const CSS = `
 @keyframes mv-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .mv .heroimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .mv .heroscrim{position:absolute;inset:0;z-index:1;background:var(--scrim)}
-`
+/* Anchored sections clear the sticky header (+ mobile section nav) when jumped to. */
+.mv section[id]{scroll-margin-top:118px}
+@media(min-width:768px){.mv section[id]{scroll-margin-top:84px}}
+.mv .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+.mv .no-scrollbar::-webkit-scrollbar{display:none}`
 
 export function Marvel({ variant }: { variant: Variant }) {
   const t = THEMES[variant]
@@ -135,6 +139,14 @@ export function Marvel({ variant }: { variant: Variant }) {
           </nav>
           <Btn onClick={() => goToApp('host')}>Sign up</Btn>
         </div>
+        {/* Mobile section nav — sticky with the header (scrolls horizontally) so you
+            can jump between sections without scrolling back to the top. */}
+        <nav className="no-scrollbar flex gap-5 overflow-x-auto border-t border-line/60 px-5 py-2.5 md:hidden">
+          <a href="#features" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Features</a>
+          <a href="#games" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Games</a>
+          <a href="#how" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">How it works</a>
+          <a href="#board" className="whitespace-nowrap text-[13px] font-semibold text-ink2 hover:text-ink">Leaderboard</a>
+        </nav>
       </header>
 
       <main className="relative z-10">

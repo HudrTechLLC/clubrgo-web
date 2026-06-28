@@ -8,6 +8,7 @@ import { SplineHero } from '@/components/Spatial'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 import { MomentsShowcase } from '@/components/MomentsShowcase'
 import { FloatingNav } from '@/components/FloatingNav'
+import { FeedbackWidget } from '@/components/FeedbackWidget'
 
 // =============================================================================
 // Marvel — the stunning, animated, spatial ClubrGO landing, rendered in three
@@ -270,6 +271,8 @@ export function Marvel({ variant }: { variant: Variant }) {
 
       {/* In-page theme switcher — flip between the three art directions. */}
       <ThemeSwitcher current={variant} />
+      {/* Draggable feedback widget — quick note + rated questions → TournamentPro. */}
+      <FeedbackWidget />
     </div>
   )
 }

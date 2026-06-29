@@ -31,3 +31,12 @@ export function Btn({ variant = 'gold', lg = false, children, onClick, className
 export function goToApp(intent?: 'host' | 'play') {
   window.location.href = intent ? `https://qa.clubrgo.app/?intent=${intent}` : 'https://qa.clubrgo.app/'
 }
+
+/**
+ * No-account guided demo. Opens the app's guest-demo entry (#/demo), which boots a sandboxed
+ * mock identity (no sign-up, no backend) into the full role-aware demo — both demo clubs and
+ * every play/host walkthrough. The in-app demo bar lets them jump to Home or Sign up anytime.
+ */
+export function goToDemo() {
+  window.location.href = 'https://qa.clubrgo.app/#/demo'
+}

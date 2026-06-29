@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import { BrandLogo } from '@/components/Logo'
-import { Chip, Btn, goToApp } from '@/components/Shared'
+import { Chip, Btn, goToApp, goToDemo } from '@/components/Shared'
 import { useCountdown, useMovingWinner } from '@/lib/hooks'
 import { Reveal } from '@/lib/motion'
 import { SplineHero } from '@/components/Spatial'
@@ -155,6 +155,7 @@ export function Marvel({ variant }: { variant: Variant }) {
             <a href="#how" className="text-sm text-ink2 hover:text-ink">How it works</a>
             <a href="#board" className="text-sm text-ink2 hover:text-ink">Leaderboard</a>
           </nav>
+          <Btn variant="ghost" onClick={goToDemo}>Demo</Btn>
           <Btn onClick={() => goToApp('host')}>Sign up</Btn>
         </div>
       </header>
@@ -179,7 +180,7 @@ export function Marvel({ variant }: { variant: Variant }) {
               </p>
               <div className="flex flex-wrap items-center gap-3.5">
                 <Btn lg onClick={() => goToApp('host')}>Start your club →</Btn>
-                <Btn lg variant="ghost" onClick={() => document.getElementById('how')?.scrollIntoView()}>See how it works</Btn>
+                <Btn lg variant="ghost" onClick={goToDemo}>▶ Try the demo · no sign-up</Btn>
               </div>
               <div className="mt-7 flex flex-wrap gap-5 text-[13px] text-ink3">
                 <span><span className="text-emer">●</span> <b className="font-semibold text-ink2">3</b> game types</span>

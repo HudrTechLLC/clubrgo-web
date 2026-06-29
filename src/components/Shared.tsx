@@ -33,10 +33,11 @@ export function goToApp(intent?: 'host' | 'play') {
 }
 
 /**
- * No-account guided demo. Opens the app's guest-demo entry (#/demo), which boots a sandboxed
- * mock identity (no sign-up, no backend) into the full role-aware demo — both demo clubs and
- * every play/host walkthrough. The in-app demo bar lets them jump to Home or Sign up anytime.
+ * No-account guided demo. Opens the standalone demo deployment (demo.clubrgo.app) — an independent
+ * build of the app (VITE_DEMO_MODE=1) that boots a sandboxed mock guest into the full role-aware
+ * demo (both demo clubs + every play/host walkthrough), with no sign-up and no backend. The demo's
+ * own bar lets them jump to Home or Sign up anytime.
  */
 export function goToDemo() {
-  window.location.href = 'https://qa.clubrgo.app/#/demo'
+  window.location.href = 'https://demo.clubrgo.app'
 }

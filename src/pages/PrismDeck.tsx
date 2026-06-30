@@ -57,7 +57,6 @@ export function PrismDeck() {
             <a href="#how" className="text-sm text-ink2 hover:text-ink">How it works</a>
             <a href="#board" className="text-sm text-ink2 hover:text-ink">Leaderboard</a>
           </nav>
-          <Btn onClick={() => goToApp('host')}>Sign up</Btn>
         </div>
       </header>
 

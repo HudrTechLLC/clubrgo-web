@@ -156,7 +156,6 @@ export function Marvel({ variant }: { variant: Variant }) {
             <a href="#board" className="text-sm text-ink2 hover:text-ink">Leaderboard</a>
           </nav>
           <Btn variant="ghost" onClick={goToDemo}>Demo</Btn>
-          <Btn onClick={() => goToApp('host')}>Sign up</Btn>
         </div>
       </header>
 
